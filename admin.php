@@ -2,7 +2,7 @@
     session_name("LeBarbierMobile");
     session_start();
     if($_SESSION['isConnected'] !== true ){
-        header('Location: /login.php');
+        header('Location: /connexion.php');
         exit;
     }
     $page = "admin";
