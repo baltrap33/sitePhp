@@ -6,6 +6,7 @@ $deconnexion = (isset($_GET['deconnexion'])   && !empty($_GET['deconnexion']) )?
 if($deconnexion == true && $_SESSION['isConnected'] === true ){
     session_destroy();
     header('Location: /index.php');
+    exit;
 }
 if( $identifiant === 'admin' && $password === 'admin' ){
     if ($_SESSION['isConnected'] !== true) {
