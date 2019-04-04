@@ -1,0 +1,51 @@
+@font-face {
+    font-family: "letraHipster";
+    src: url("../fonts/letra_hipster.ttf") format("truetype");
+}
+body {
+    font-family: letraHipster;
+}
+.navbar .nav-link{
+    font-size: 1.8rem;
+}
+.navbar-brand{
+    font-size: 2rem;
+}
+.presentation{
+    width: 100vw;
+    height: 70vh;
+    background-image: url("../img/cover.jpg");
+    background-size: cover;
+    background-position: center center;
+    display: flex;
+    justify-content: left;
+    align-items: flex-end;
+}
+.presentation .titles .site{
+    font-size: 5rem;
+    color: white;
+    text-shadow: 2px 2px 2px black;
+}
+.presentation .titles .phrase{
+    font-size: 3rem;
+    color: white;
+    text-shadow: 2px 2px 2px black;
+}
+.separator{
+    width: 100vw;
+    height: 30px;
+}
+.connexion {
+    width: 100vw;
+    height: 70vh;
+    background-image: url("../img/cover.jpg");
+    background-size: cover;
+    background-position: center center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.card{
+    border: 1rem solid;
+    font-size: 2rem;
+}
