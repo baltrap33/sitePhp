@@ -1,4 +1,6 @@
 <?php
+require './config/DbPdo.php';
+
 function createHeader($page){
     ?>
     <nav class="navbar navbar-expand-lg navbar-light bg-warning">
@@ -55,4 +57,26 @@ function createSeparator(){
 
 function createContent($page){
     include "content/content_$page.php";
+}
+
+function connexionDb(){
+    return DbPDO::pdoConnexion();
+}
+
+function user_login($identifiant,$password){
+    $con = connexionDb();
+    $query = $con->prepare("SELECT * FROM `users` WHERE username= :identifiant and password= :password;");
+    $query->execute(array('identifiant' => $identifiant, 'password' => sha1($password)));
+    $count = $query->rowCount();
+    if($count == 1){
+        session_start([
+            'cookie_lifetime' => 86400,
+        ]);
+        while($row = $query->fetch(PDO::FETCH_ASSOC)) {
+            $_SESSION["userId"] = $row["id"];
+            $_SESSION["userUsername"] = $row["username"];
+            $_SESSION["userEmail"] = $row["email"];
+        }
+    }
+    return $count == 1;
 }

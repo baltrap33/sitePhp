@@ -8,18 +8,15 @@ if($deconnexion == true && $_SESSION['isConnected'] === true ){
     header('Location: /index.php');
     exit;
 }
-if( $identifiant === 'admin' && $password === 'admin' ){
+
+$logged = user_login($identifiant, $password);
+if( $logged ){
     if ($_SESSION['isConnected'] !== true) {
-        session_start([
-            'cookie_lifetime' => 86400,
-        ]);
-        $_SESSION['user'] = $identifiant;
         $_SESSION['isConnected'] = true;
         $_SESSION['timeStamp'] = time();
         header('Location: /admin.php');
         exit;
     }
-
 }
 
 if ( isset($_SESSION['isConnected']) && $_SESSION['isConnected'] === true ) {
