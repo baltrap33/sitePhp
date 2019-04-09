@@ -10,6 +10,7 @@
     include "./includes/head.php";
     createHeader($page);
     $edit = (isset($_GET['edit']) && !empty($_GET['edit'])) ? $_GET['edit'] : null;
+    $add = (isset($_GET['add']) && !empty($_GET['add'])) ? $_GET['add'] : null;
     $id = (isset($_GET['id']) && !empty($_GET['id'])) ? $_GET['id'] : null;
     if ($_SERVER['REQUEST_METHOD'] === "POST"){
         $saved = false;
@@ -20,7 +21,7 @@
                 $titre = (isset($_POST['titre']) && !empty($_POST['titre'])) ? $_POST['titre'] : null;
                 $description = (isset($_POST['description']) && !empty($_POST['description'])) ? $_POST['description'] : null;
                 $prix = (isset($_POST['prix']) && !empty($_POST['prix'])) ? $_POST['prix'] : null;
-                $saved = savePrestationContent($id, $titre, $description, $prix);
+                $saved = savePrestationContent($id, $titre, trim($description), $prix);
                 if ($saved){
                     header("Location: /prestations.php");
                     exit();
@@ -29,7 +30,10 @@
         }
 
     }
-    if ($edit && $id){
+
+    if ($add){
+        addContent($add);
+    }elseif ($edit && $id) {
         editContent($edit, $id);
     }else{
         createContent($page);

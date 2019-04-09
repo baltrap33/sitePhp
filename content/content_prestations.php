@@ -9,7 +9,15 @@
 <?php createSeparator(); ?>
 <div class="container" style="font-size:2.5rem">
     <div class="row mt-5">
-        <div class="col-12 text-center">Nos Prestations</div>
+        <div class="col-12 text-center">Nos Prestations
+            <?php if ( isset($_SESSION['isConnected']) && $_SESSION['isConnected'] === true ) {?>
+                <a href="/admin.php?add=prestation">
+                    <button class="btn btn-sm btn-primary float-right">
+                        <i class="material-icons">add</i>
+                    </button>
+                </a>
+            <?php }?>
+        </div>
     </div>
     <?php
     $prestations = getAllPrestations();
@@ -59,4 +67,5 @@
         <?php
     }
     ?>
+
 </div>

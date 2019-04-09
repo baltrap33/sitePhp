@@ -8,25 +8,25 @@
         <div class="col-12 col-sm-8">
             <div class="row card border-warning bg-white">
                 <h1 class="col-12 text-center">
-                    Edition d'une prestation
+                    Creation d'une prestation
                 </h1>
-                <form class="col mb-3" method="post" action="<?= $_SERVER['PHP_SELF']; ?>">
-                    <input type="hidden" name="id" value="<?= $prestation["id"]?>"/>
-                    <input type="hidden" name="edit" value="prestation"/>
+                <form class="col mb-3" method="post" action="/add.php">
+                    <input type="hidden" name="add" value="prestation"/>
                     <div class="form-group">
                         <label for="titre">Titre :</label>
-                        <input name="titre" type="text" value="<?= $prestation["titre"]?>" class="form-control" id="titre">
+                        <input name="titre" type="text" class="form-control" id="titre">
                     </div>
                     <div class="form-group">
                         <label for="description">Description :</label>
                         <textarea name="description" class="form-control" id="description"
-                                  placeholder="description de la prestation"><?= trim($prestation["description"]);?></textarea>
+                                  placeholder="description de la prestation">
+                        </textarea>
                     </div>
                     <div class="form-group row">
                         <label class="col-3" for="prix">Prix :</label>
-                        <input name="prix" type="number" step="0.01" class="col-6 form-control" id="prix" value="<?= $prestation["prix"]?>" />
+                        <input name="prix" type="number" step="0.01" class="col-6 form-control" id="prix" />
                     </div>
-                    <button type="reset" class="btn btn-primary">Reset</button>
+                    <button type="reset" class="btn btn-primary">Annuler</button>
                     <button type="submit" class="btn btn-warning">Enregistrer</button>
                 </form>
             </div>

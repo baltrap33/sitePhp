@@ -68,6 +68,11 @@ function createContent($page, $params=null){
     include "content/content_$page.php";
 }
 
+function addContent($add){
+
+    include "add/add_$add.php";
+}
+
 function editContent($edit, $id){
     $con = connexionDb();
     $query = $con->prepare("SELECT * FROM prestations WHERE id= :id");
@@ -76,6 +81,16 @@ function editContent($edit, $id){
     include "edit/edit_$edit.php";
 }
 
+function addPrestationContent($titre, $description = null, $prix = 0){
+    $con = connexionDb();
+    $queryCreate = $con->prepare("INSERT INTO prestations (`id`,`titre`,`description`,`prix`, `imgPath`) VALUES(NULL, :titre, :description, :prix, NULL)");
+    $result = $queryCreate->execute(array(
+        ":titre"=>$titre,
+        ":description"=>$description,
+        ":prix"=>$prix
+    ));
+    return $result;
+}
 function savePrestationContent($id, $titre, $description = null, $prix = 0){
     $con = connexionDb();
     $queryUpdate = $con->prepare("UPDATE prestations 
@@ -90,6 +105,13 @@ function savePrestationContent($id, $titre, $description = null, $prix = 0){
         ":id"=>$id
     ));
     return $resultUpdate;
+}
+
+function deletePrestationContent($id){
+    $con = connexionDb();
+    $queryDelete = $con->prepare("DELETE FROM prestations WHERE `id` = :id;");
+    $resultDelete = $queryDelete->execute(array(":id"=>$id));
+    return $resultDelete;
 }
 
 function connexionDb(){
