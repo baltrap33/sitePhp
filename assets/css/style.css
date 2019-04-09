@@ -4,6 +4,11 @@
 }
 body {
     font-family: letraHipster;
+    min-width: 400px;
+    overflow: auto;
+}
+a:hover{
+    text-decoration: none;
 }
 .navbar .nav-link{
     font-size: 1.8rem;
@@ -12,6 +17,7 @@ body {
     font-size: 2rem;
 }
 .presentation{
+    min-width:400px;
     width: 100vw;
     height: 70vh;
     background-image: url("../img/cover.jpg");
@@ -48,4 +54,13 @@ body {
 .card{
     border: 1rem solid;
     font-size: 2rem;
+}
+.prestation-row{
+    position: relative;
+}
+.prestation-row .modif-row{
+    position:absolute;
+    top: 0px;
+    right: 0px;
+    display: flex;
 }

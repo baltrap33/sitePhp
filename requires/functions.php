@@ -23,6 +23,9 @@ function createHeader($page){
                 <li class="nav-item <?= $page === "news"? "active":""; ?>">
                     <a class="nav-link" href="news.php">News </a>
                 </li>
+                <li class="nav-item <?= $page === "prestations"? "active":""; ?>">
+                    <a class="nav-link" href="prestations.php">Nos prestations </a>
+                </li>
                 <?php
                 if ( isset($_SESSION['isConnected']) && $_SESSION['isConnected'] === true ) {
                     ?>
@@ -55,8 +58,38 @@ function createSeparator(){
     <?php
 }
 
-function createContent($page){
+function createContent($page, $params=null){
+    if($params && is_array($params)){
+        foreach ($params as $key=>$value){
+            $$key = $value;
+        }
+    }
+
     include "content/content_$page.php";
+}
+
+function editContent($edit, $id){
+    $con = connexionDb();
+    $query = $con->prepare("SELECT * FROM prestations WHERE id= :id");
+    $query->execute(array(":id"=>$id));
+    $$edit = $query->fetch(PDO::FETCH_ASSOC);
+    include "edit/edit_$edit.php";
+}
+
+function savePrestationContent($id, $titre, $description = null, $prix = 0){
+    $con = connexionDb();
+    $queryUpdate = $con->prepare("UPDATE prestations 
+                            SET `titre` = :titre,
+                                `description` = :description,
+                                `prix` = :prix
+                            WHERE `id` = :id;");
+    $resultUpdate = $queryUpdate->execute(array(
+        ":titre"=>$titre,
+        ":description"=>$description,
+        ":prix"=>$prix,
+        ":id"=>$id
+    ));
+    return $resultUpdate;
 }
 
 function connexionDb(){
@@ -66,7 +99,7 @@ function connexionDb(){
 function user_login($identifiant,$password){
     $con = connexionDb();
     $query = $con->prepare("SELECT * FROM `users` WHERE username= :identifiant and password= :password;");
-    $query->execute(array('identifiant' => $identifiant, 'password' => sha1($password)));
+    $query->execute(array(':identifiant' => $identifiant, ':password' => sha1($password)));
     $count = $query->rowCount();
     if($count == 1){
         session_start([
@@ -79,4 +112,15 @@ function user_login($identifiant,$password){
         }
     }
     return $count == 1;
+}
+
+function getAllPrestations(){
+    $con = connexionDb();
+    $query = $con->prepare("SELECT * FROM prestations");
+    $query->execute();
+    $rows = [];
+    while($row = $query->fetch(PDO::FETCH_ASSOC)){
+        array_push($rows, $row);
+    }
+    return $rows;
 }
